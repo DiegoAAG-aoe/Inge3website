@@ -1,3 +1,29 @@
+<?php
+// index.php
+session_start();
+
+// Simulación de usuarios (puedes conectarlo más tarde con DynamoDB)
+$usuarios = [
+    ['email' => 'admin@admin', 'password' => 'admin', 'nombre' => 'Usuario Ejemplo'],
+];
+
+// Verifica si el formulario fue enviado
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validar credenciales (esto debe ser reemplazado con una consulta a DynamoDB)
+    foreach ($usuarios as $usuario) {
+        if ($usuario['email'] == $email && $usuario['password'] == $password) {
+            $_SESSION['usuario'] = $usuario['nombre'];
+            header('Location: Vista/feed.php'); // Redirige al feed
+            exit();
+        }
+    }
+    $error = "Correo electrónico o contraseña incorrectos.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +42,7 @@
                     <div class="alert alert-danger"><?= $error ?></div>
                 <?php endif; ?>
 
-                <form method="POST" action="redir.php">
+                <form method="POST" action="index.php">
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
                         <input type="email" name="email" class="form-control" id="email" placeholder="Ingresa tu email" required>
