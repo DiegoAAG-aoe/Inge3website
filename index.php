@@ -2,7 +2,7 @@
 // index.php
 session_start();
 
-// Simulación de usuarios (puedes conectarlo más tarde con DynamoDB)
+// Simulación de usuarios (DynamoDB)
 $usuarios = [
     ['email' => 'admin@admin', 'password' => 'admin', 'nombre' => 'Usuario Ejemplo'],
 ];
